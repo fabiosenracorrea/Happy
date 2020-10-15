@@ -6,7 +6,7 @@ export const Container = styled.div`
   display: flex;
   position: relative;
 
-  a {
+  > a {
     position: absolute;
     right: 40px;
     bottom: 40px;
@@ -60,4 +60,38 @@ export const MapContainer = styled.div`
   flex: 1;
 
   z-index: 5;
+
+  .map-popup .leaflet-popup-content-wrapper {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: none;
+  }
+
+  .map-popup .leaflet-popup-content {
+    color: #0089a5;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 8px 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    a {
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      background: #15c3d6;
+      box-shadow: 17px 27px 41px rgba(23, 166, 166, 0.16);
+      border-radius: 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .map-popup .leaflet-popup-tip-container {
+    display: none;
+  }
 `;
