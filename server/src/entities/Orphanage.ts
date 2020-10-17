@@ -31,6 +31,9 @@ class Orphanage {
   @Column('varchar')
   opening_hours: string;
 
+  @Column('varchar')
+  whatsapp: string;
+
   @Column('boolean')
   open_on_weekends: boolean;
 

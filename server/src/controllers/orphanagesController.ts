@@ -48,6 +48,7 @@ export default class OrphanagesControler {
       instructions,
       opening_hours,
       open_on_weekends,
+      whatsapp,
     } = request.body;
 
     const orphanageImages = request.files as Express.Multer.File[];
@@ -64,6 +65,7 @@ export default class OrphanagesControler {
       opening_hours,
       open_on_weekends: open_on_weekends === 'true',
       images,
+      whatsapp,
     });
 
     return response.status(201).json(createdOrphanage);

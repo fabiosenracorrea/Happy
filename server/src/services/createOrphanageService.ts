@@ -12,6 +12,7 @@ interface OrphanageDTO {
   opening_hours: string;
   latitude: number;
   longitude: number;
+  whatsapp: string;
   images: { path: string }[];
 }
 
@@ -26,6 +27,7 @@ class CreateOrphanageService {
       opening_hours,
       open_on_weekends,
       images,
+      whatsapp,
     } = orphanageData;
 
     if (
@@ -36,6 +38,7 @@ class CreateOrphanageService {
       !about ||
       open_on_weekends === undefined ||
       !opening_hours ||
+      whatsapp ||
       !images.length
     ) {
       throw new AppError('Missing required orphanage information', 401);
