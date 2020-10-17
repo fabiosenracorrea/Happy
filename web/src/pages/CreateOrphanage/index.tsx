@@ -2,7 +2,7 @@ import React, { FormEvent, useCallback, useState, ChangeEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import Leaflet, { LeafletMouseEvent } from 'leaflet';
-import { FiPlus } from 'react-icons/fi';
+import { FiPlus, FiX } from 'react-icons/fi';
 
 import api from '../../services/api';
 
@@ -31,6 +31,7 @@ const CreateOrphanage: React.FC = () => {
   const [about, setAbout] = useState('');
   const [instructions, setInstructions] = useState('');
   const [opening_hours, setOpeningHours] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
 
   const [open_on_weekends, setOpenOnWeekends] = useState(true);
 
@@ -64,6 +65,7 @@ const CreateOrphanage: React.FC = () => {
       data.append('open_on_weekends', String(open_on_weekends));
       data.append('opening_hours', opening_hours);
       data.append('instructions', instructions);
+      data.append('whatsapp', whatsapp);
       data.append('latitude', String(latitude));
       data.append('longitude', String(longitude));
 
@@ -86,7 +88,28 @@ const CreateOrphanage: React.FC = () => {
       position,
       instructions,
       images,
+      whatsapp,
     ],
+  );
+
+  const maxWppNumber = useCallback(value => {
+    if (value < 99999999999) {
+      setWhatsapp(value);
+    }
+  }, []);
+
+  const handleImageRemoval = useCallback(
+    imageIndex => {
+      const updatedImages = [...images];
+      const updatedImagesURLs = [...imagesURLs];
+
+      updatedImages.splice(imageIndex, 1);
+      updatedImagesURLs.splice(imageIndex, 1);
+
+      setImages(updatedImages);
+      setImagesURLs(updatedImagesURLs);
+    },
+    [images, imagesURLs],
   );
 
   const handleSelectImages = useCallback(
@@ -147,6 +170,18 @@ const CreateOrphanage: React.FC = () => {
             </div>
 
             <div className="input-block">
+              <label htmlFor="whatsapp">Whastapp</label>
+              <input
+                id="whatsapp"
+                placeholder="31987654321"
+                type="number"
+                value={whatsapp}
+                onChange={({ target }) => maxWppNumber(target.value)}
+                required
+              />
+            </div>
+
+            <div className="input-block">
               <label htmlFor="about">
                 Sobre <span>Máximo de 300 caracteres</span>
               </label>
@@ -163,13 +198,18 @@ const CreateOrphanage: React.FC = () => {
               <label htmlFor="images">Fotos</label>
 
               <div className="image-container">
-                {imagesURLs.map(image => (
-                  <img
+                {imagesURLs.map((image, index) => (
+                  <div
                     key={image}
-                    src={image}
-                    alt={name}
-                    className="new-image"
-                  />
+                    className="new-img-container"
+                    onClick={() => handleImageRemoval(index)}
+                  >
+                    <img src={image} alt={name} className="new-image" />
+
+                    <button type="button">
+                      <FiX size={20} />
+                    </button>
+                  </div>
                 ))}
 
                 <label htmlFor="images" className="new-image">
@@ -203,6 +243,7 @@ const CreateOrphanage: React.FC = () => {
               <input
                 id="opening_hours"
                 value={opening_hours}
+                placeholder="8h às 21h"
                 onChange={({ target }) => setOpeningHours(target.value)}
               />
             </div>
