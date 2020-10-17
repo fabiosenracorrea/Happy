@@ -38,7 +38,7 @@ class CreateOrphanageService {
       !about ||
       open_on_weekends === undefined ||
       !opening_hours ||
-      whatsapp ||
+      !whatsapp ||
       !images.length
     ) {
       throw new AppError('Missing required orphanage information', 401);
