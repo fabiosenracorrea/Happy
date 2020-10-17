@@ -199,14 +199,13 @@ const CreateOrphanage: React.FC = () => {
 
               <div className="image-container">
                 {imagesURLs.map((image, index) => (
-                  <div
-                    key={image}
-                    className="new-img-container"
-                    onClick={() => handleImageRemoval(index)}
-                  >
+                  <div key={image} className="new-img-container">
                     <img src={image} alt={name} className="new-image" />
 
-                    <button type="button">
+                    <button
+                      type="button"
+                      onClick={() => handleImageRemoval(index)}
+                    >
                       <FiX size={20} />
                     </button>
                   </div>

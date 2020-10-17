@@ -30,6 +30,7 @@ interface OrphanageData {
   instructions: string;
   opening_hours: string;
   open_on_weekends: boolean;
+  whatsapp: string;
   images: { url: string }[];
 }
 
@@ -148,10 +149,15 @@ const Orphanage: React.FC = () => {
               )}
             </div>
 
-            <button type="button" className="contact-button">
+            <a
+              className="contact-button"
+              target="_blank"
+              rel="noreferrer"
+              href={`https://api.whatsapp.com/send?phone=${orphanage.whatsapp}&text=Olá! Gostaria de saber mais informações sobre o Orfanato 😁`}
+            >
               <FaWhatsapp size={20} color="#FFF" />
               Entrar em contato
-            </button>
+            </a>
           </div>
         </div>
       </main>
